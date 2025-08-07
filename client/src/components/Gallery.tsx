@@ -3,17 +3,17 @@ import { Camera, ExternalLink } from 'lucide-react';
 const Gallery = () => {
   const galleryImages = [
     {
-      url: "https://scontent.fpap3-1.fna.fbcdn.net/v/t51.75761-15/471716965_18057839926934301_2356221322912585588_n.jpg?stp=dst-jpegr_tt6&_nc_cat=103&ccb=1-7&_nc_sid=127cfc&_nc_eui2=AeHigza6MRBbwTBC-m42himQmGrIvoMxYDWYasi-gzFgNQzC047EdQ2SMxF9H-fIQTS6KokKCaWdAeemclbJHEbk&_nc_ohc=ozjJbFdpIswQ7kNvwF2drtL&_nc_oc=AdnEyMkcJIlo3SPuYdlM3k8mWh-WKvHfogW6jTcdt3nMQoylRuGEsY2vQV1wq990dic&_nc_zt=23&se=-1&_nc_ht=scontent.fpap3-1.fna&_nc_gid=KtIzKh4tDjhjbvmLAYmPzQ&oh=00_AfTO54ivtSPs1X2NFzmh5ujcuSfpqXJhRjR0mS",
+      url: "https://scontent.fpap3-1.fna.fbcdn.net/v/t51.75761-15/471716965_18057839926934301_2356221322912585588_n.jpg?stp=dst-jpegr_tt6&_nc_cat=103&ccb=1-7&_nc_sid=127cfc&_nc_eui2=AeHigza6MRBbwTBC-m42himQmGrIvoMxYDWYasi-gzFgNQzC047EdQ2SMxF9H-fIQTS6KokKCaWdAeemclbJHEbk&_nc_ohc=ozjJbFdpIswQ7kNvwF2drtL&_nc_oc=AdnEyMkcJIlo3SPuYdlM3k8mWh-WKvHfogW6jTcdt3nMQoylRuGEsY2vQV1wq990dic&_nc_zt=23&se=-1&_nc_ht=scontent.fpap3-1.fna&_nc_gid=KtIzKh4tDjhjbvmLAYmPzQ&oh=00_AfTO54ivtSPs1X2NFzmh5ujcuSfpqXJhRjR0mSJu8bE&oe=688E8B23",
       alt: "Plats savoureux d'Idgie's Restaurant",
       category: "Plats"
     },
     {
-      url: "https://scontent.fpap3-2.fna.fbcdn.net/v/t51.75761-15/471635194_18057839908934301_6107939704202159619_n.jpg?stp=dst-jpegr_tt6&_nc_cat=111&ccb=1-7&_nc_sid=127cfc&_nc_eui2=AeFVYqo2snRKWqP9WozBXipr-46RTW1hbFj7jpFNbWFsWMScktr30tJ_LMzcAtEqpZ24d4VVVdc1WCKtceMYEySC&_nc_ohc=0Uks9ippSasQ7kNvwEa4C9O&_nc_oc=AdnBtbUcp_Q7zbYj7pYuLebXPNoWyUQtxcCjQvmfU1fktZJpOUa4IPUqtxquhg0OhjY&_nc_zt=23&se=-1&_nc_ht=scontent.fpap3-2.fna&_nc_gid=-Xq4bdPTV4Q60uobxIplLA&oh=00_AfRd9aJ0fi4Cr3E1_-hkFQUZ7dK1Yz1tJNJotE",
+      url: "https://scontent.fpap3-2.fna.fbcdn.net/v/t51.75761-15/471635194_18057839908934301_6107939704202159619_n.jpg?stp=dst-jpegr_tt6&_nc_cat=111&ccb=1-7&_nc_sid=127cfc&_nc_eui2=AeFVYqo2snRKWqP9WozBXipr-46RTW1hbFj7jpFNbWFsWMScktr30tJ_LMzcAtEqpZ24d4VVVdc1WCKtceMYEySC&_nc_ohc=0Uks9ippSasQ7kNvwEa4C9O&_nc_oc=AdnBtbUcp_Q7zbYj7pYuLebXPNoWyUQtxcCjQvmfU1fktZJpOUa4IPUqtxquhg0OhjY&_nc_zt=23&se=-1&_nc_ht=scontent.fpap3-2.fna&_nc_gid=-Xq4bdPTV4Q60uobxIplLA&oh=00_AfRd9aJ0fi4Cr3E1_-hkFQUZ7dK1Yz1tJNJotEQw1o&oe=688E7F45",
       alt: "Spécialités cuisinées avec passion",
       category: "Plats"
     },
     {
-      url: "https://scontent.fpap3-2.fna.fbcdn.net/v/t51.75761-15/471562965_18057839935934301_5619857303063158336_n.jpg?stp=dst-jpegr_tt6&_nc_cat=108&ccb=1-7&_nc_sid=127cfc&_nc_eui2=AeEwBBEsAEf772CZ4J20h0cPM5yzQpZZLJEznLNCllkskRgYWeKqiTz_3s0iJKAUfeNi9CBLHwmHpa7-es_NQ8d7&_nc_ohc=l1XaK0GM2BkQ7kNvwEDm6Hc&_nc_oc=AdnKNVledVz-4gGdHbzmox2S8p8oRc_ag4-9xcyr_Cn1qbXJVScqIMxdvPgzK99NzLg&_nc_zt=23&se=-1&_nc_ht=scontent.fpap3-2.fna&_nc_gid=KQQD_14vaT8N2kSjn_RjDg&oh=00_AfT5mlOIqTQOa0jvVzkUPiw5uxkfpOaZweDgAr",
+      url: "https://scontent.fpap3-2.fna.fbcdn.net/v/t51.75761-15/471562965_18057839935934301_5619857303063158336_n.jpg?stp=dst-jpegr_tt6&_nc_cat=108&ccb=1-7&_nc_sid=127cfc&_nc_eui2=AeEwBBEsAEf772CZ4J20h0cPM5yzQpZZLJEznLNCllkskRgYWeKqiTz_3s0iJKAUfeNi9CBLHwmHpa7-es_NQ8d7&_nc_ohc=l1XaK0GM2BkQ7kNvwEDm6Hc&_nc_oc=AdnKNVledVz-4gGdHbzmox2S8p8oRc_ag4-9xcyr_Cn1qbXJVScqIMxdvPgzK99NzLg&_nc_zt=23&se=-1&_nc_ht=scontent.fpap3-2.fna&_nc_gid=KQQD_14vaT8N2kSjn_RjDg&oh=00_AfT5mlOIqTQOa0jvVzkUPiw5uxkfpOaZweDgArP8Q&oe=688E6C12",
       alt: "Délicieux plats préparés frais",
       category: "Plats"
     },
@@ -23,12 +23,12 @@ const Gallery = () => {
       category: "Ambiance"
     },
     {
-      url: "https://scontent.fpap3-2.fna.fbcdn.net/v/t39.30808-6/456879230_18045232618934301_8047943265727651158_n.jpg?stp=cp6_dst-jpegr_tt6&_nc_cat=108&ccb=1-7&_nc_sid=127cfc&_nc_eui2=AeFRHFPAcJlsap9ooLNY3dmeKajBBKsJOOcpqMEEqwk454hVexpE8-qsMZJv8u93r0KJvSUNC1wXpnkLo4cLihQ5&_nc_ohc=J2E1s69JIOoQ7kNvwGGTaks&_nc_oc=AdlhiXbir_oN5mioswYQsYil2KLJqcngm2D58FQ40FHauvM5kKDrzJvskrjMb4ZUNLk&_nc_zt=23&se=-1&_nc_ht=scontent.fpap3-2.fna&_nc_gid=1vSySLHXx0OzzTlKImI--Q&oh=00_AfTNBJvOgJbGiDJYfKPk1K5Alm-HIYuxem0",
+      url: "https://scontent.fpap3-2.fna.fbcdn.net/v/t39.30808-6/456879230_18045232618934301_8047943265727651158_n.jpg?stp=cp6_dst-jpegr_tt6&_nc_cat=108&ccb=1-7&_nc_sid=127cfc&_nc_eui2=AeFRHFPAcJlsap9ooLNY3dmeKajBBKsJOOcpqMEEqwk454hVexpE8-qsMZJv8u93r0KJvSUNC1wXpnkLo4cLihQ5&_nc_ohc=J2E1s69JIOoQ7kNvwGGTaks&_nc_oc=AdlhiXbir_oN5mioswYQsYil2KLJqcngm2D58FQ40FHauvM5kKDrzJvskrjMb4ZUNLk&_nc_zt=23&se=-1&_nc_ht=scontent.fpap3-2.fna&_nc_gid=1vSySLHXx0OzzTlKImI--Q&oh=00_AfTNBJvOgJbGiDJYfKPk1K5Alm-HIYuxem0QX4&oe=688E8A67",
       alt: "Espace rooftop avec vue magnifique",
       category: "Ambiance"
     },
     {
-      url: "https://scontent.fpap3-2.fna.fbcdn.net/v/t39.30808-6/457128015_18045232318934301_1358730448357741076_n.jpg?stp=cp6_dst-jpegr_tt6&_nc_cat=111&ccb=1-7&_nc_sid=127cfc&_nc_eui2=AeGLAwpOTZr2CdmM1fqHHK_AXs9WDrqKYv9ez1YOuopi_yH3whPnuDZCu3xpS2I_d-rU_EKlGLVCJ3Ukc5fLahmc&_nc_ohc=O8yPyCKfYqIQ7kNvwEOIhGm&_nc_oc=AdmDHFgh-x94LbDl-hq7iQAv56pDiOFo_7wV0zWJxLMTsVQDDkc1JnifrYns21ZwzSk&_nc_zt=23&se=-1&_nc_ht=scontent.fpap3-2.fna&_nc_gid=oORduWErhSqW7Vpw35X2ig&oh=00_AfRMKba_LMcIci1EUO5E_JkXQ9PtAQVY915",
+      url: "https://scontent.fpap3-2.fna.fbcdn.net/v/t39.30808-6/457128015_18045232318934301_1358730448357741076_n.jpg?stp=cp6_dst-jpegr_tt6&_nc_cat=111&ccb=1-7&_nc_sid=127cfc&_nc_eui2=AeGLAwpOTZr2CdmM1fqHHK_AXs9WDrqKYv9ez1YOuopi_yH3whPnuDZCu3xpS2I_d-rU_EKlGLVCJ3Ukc5fLahmc&_nc_ohc=O8yPyCKfYqIQ7kNvwEOIhGm&_nc_oc=AdmDHFgh-x94LbDl-hq7iQAv56pDiOFo_7wV0zWJxLMTsVQDDkc1JnifrYns21ZwzSk&_nc_zt=23&se=-1&_nc_ht=scontent.fpap3-2.fna&_nc_gid=oORduWErhSqW7Vpw35X2ig&oh=00_AfRMKba_LMcIci1EUO5E_JkXQ9PtAQVY915mw8&oe=688E7D23",
       alt: "Terrasse et espace extérieur",
       category: "Ambiance"
     },
