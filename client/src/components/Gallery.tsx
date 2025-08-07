@@ -1,7 +1,18 @@
 import { Camera, ExternalLink } from 'lucide-react';
+import { useState } from 'react';
+import { useQuery } from '@tanstack/react-query';
+import type { GalleryImage } from '@shared/schema';
 
 const Gallery = () => {
-  const galleryImages = [
+  const [filter, setFilter] = useState('all');
+
+  // Fetch gallery images from CMS
+  const { data: galleryImages = [], isLoading } = useQuery<GalleryImage[]>({
+    queryKey: ['/api/gallery'],
+  });
+
+  // Fallback images for initial load
+  const fallbackImages = [
     {
       url: "https://scontent.fpap3-1.fna.fbcdn.net/v/t51.75761-15/471716965_18057839926934301_2356221322912585588_n.jpg?stp=dst-jpegr_tt6&_nc_cat=103&ccb=1-7&_nc_sid=127cfc&_nc_eui2=AeHigza6MRBbwTBC-m42himQmGrIvoMxYDWYasi-gzFgNQzC047EdQ2SMxF9H-fIQTS6KokKCaWdAeemclbJHEbk&_nc_ohc=ozjJbFdpIswQ7kNvwF2drtL&_nc_oc=AdnEyMkcJIlo3SPuYdlM3k8mWh-WKvHfogW6jTcdt3nMQoylRuGEsY2vQV1wq990dic&_nc_zt=23&se=-1&_nc_ht=scontent.fpap3-1.fna&_nc_gid=KtIzKh4tDjhjbvmLAYmPzQ&oh=00_AfTO54ivtSPs1X2NFzmh5ujcuSfpqXJhRjR0mSJu8bE&oe=688E8B23",
       alt: "Plats savoureux d'Idgie's Restaurant",
@@ -49,6 +60,27 @@ const Gallery = () => {
     }
   ];
 
+  // Use CMS data if available, otherwise use fallback
+  const imagesToDisplay = galleryImages.length > 0 ? galleryImages : fallbackImages;
+
+  const filteredImages = filter === 'all' 
+    ? imagesToDisplay 
+    : imagesToDisplay.filter(img => img.category.toLowerCase() === filter.toLowerCase());
+
+  const categories = ['all', 'plats', 'ambiance', 'cuisine', 'service', 'équipe'];
+
+  if (isLoading) {
+    return (
+      <section id="galerie" className="py-20 bg-gradient-to-b from-gray-50 to-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center">
+            <p className="text-xl text-gray-600">Chargement de la galerie...</p>
+          </div>
+        </div>
+      </section>
+    );
+  }
+
   return (
     <section id="galerie" className="py-20 bg-gradient-to-b from-gray-50 to-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -63,9 +95,26 @@ const Gallery = () => {
           </p>
         </div>
 
+        {/* Filter Buttons */}
+        <div className="flex flex-wrap justify-center gap-4 mb-12">
+          {categories.map((category) => (
+            <button
+              key={category}
+              onClick={() => setFilter(category)}
+              className={`px-6 py-3 rounded-full font-medium transition-all duration-200 ${
+                filter === category
+                  ? 'bg-red-600 text-white shadow-lg'
+                  : 'bg-white text-gray-700 hover:bg-red-50 hover:text-red-600 border border-gray-200'
+              }`}
+            >
+              {category === 'all' ? 'Tout' : category.charAt(0).toUpperCase() + category.slice(1)}
+            </button>
+          ))}
+        </div>
+
         {/* Gallery Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
-          {galleryImages.map((image, index) => (
+          {filteredImages.map((image, index) => (
             <div 
               key={index}
               className="group relative bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-2xl transition-all duration-300 hover:-translate-y-2"

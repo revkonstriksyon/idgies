@@ -1,7 +1,15 @@
 import { Star, ExternalLink, MessageCircle } from 'lucide-react';
+import { useQuery } from '@tanstack/react-query';
+import type { Review } from '@shared/schema';
 
 const Reviews = () => {
-  const reviews = [
+  // Fetch reviews from CMS
+  const { data: reviewsData = [], isLoading } = useQuery<Review[]>({
+    queryKey: ['/api/reviews'],
+  });
+
+  // Fallback reviews for initial load
+  const fallbackReviews = [
     {
       author: "Maddog D.",
       rating: 4,
@@ -19,6 +27,13 @@ const Reviews = () => {
     }
   ];
 
+  // Use CMS data if available, otherwise use fallback
+  const reviews = reviewsData.length > 0 ? reviewsData.map(review => ({
+    author: review.customerName,
+    rating: parseInt(review.rating),
+    text: review.comment
+  })) : fallbackReviews;
+
   const renderStars = (rating: number) => {
     return Array.from({ length: 5 }, (_, index) => (
       <Star
@@ -28,6 +43,18 @@ const Reviews = () => {
       />
     ));
   };
+
+  if (isLoading) {
+    return (
+      <section id="avis" className="py-20 bg-gradient-to-b from-white to-gray-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center">
+            <p className="text-xl text-gray-600">Chargement des avis...</p>
+          </div>
+        </div>
+      </section>
+    );
+  }
 
   return (
     <section id="avis" className="py-20 bg-gradient-to-b from-white to-gray-50">

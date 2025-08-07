@@ -1,16 +1,18 @@
 # Idgie's Restaurant Website
 
 ## Project Overview
-A modern, responsive restaurant website for Idgie's Restaurant located in Delmas, Port-au-Prince. The website showcases both the fast-food and rooftop dining experiences, featuring an elegant design with smooth animations and mobile-first approach.
+A modern, responsive restaurant website for Idgie's Restaurant located in Delmas, Port-au-Prince. The website showcases both the fast-food and rooftop dining experiences, featuring an elegant design with smooth animations and mobile-first approach. Now implementing a headless CMS for easy content management.
 
 ## Project Architecture
 - **Frontend**: React 18 with TypeScript
 - **Routing**: Wouter for client-side routing
 - **Styling**: Tailwind CSS with custom design system
 - **Icons**: Lucide React for consistent iconography
-- **Backend**: Express.js with TypeScript
+- **Backend**: Strapi CMS (Headless) + Express.js with TypeScript
+- **Database**: PostgreSQL for CMS data
 - **Build Tool**: Vite for fast development and building
 - **Components**: Modular component architecture
+- **Admin Panel**: Strapi Admin for non-technical content management
 
 ## Features
 - Single-page application with smooth scrolling navigation

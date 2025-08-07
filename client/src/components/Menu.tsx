@@ -1,7 +1,29 @@
 import { Download, Star, Clock, Users } from 'lucide-react';
+import { useQuery } from '@tanstack/react-query';
+import type { MenuItem } from '@shared/schema';
 
 const Menu = () => {
-  const menuCategories = [
+  // Fetch menu items from CMS
+  const { data: menuItems = [], isLoading } = useQuery<MenuItem[]>({
+    queryKey: ['/api/menu'],
+  });
+
+  // Group menu items by category
+  const menuCategories = menuItems.reduce((acc, item) => {
+    const category = acc.find(cat => cat.name === item.category);
+    if (category) {
+      category.items.push(item);
+    } else {
+      acc.push({
+        name: item.category,
+        items: [item]
+      });
+    }
+    return acc;
+  }, [] as Array<{ name: string; items: MenuItem[] }>);
+
+  // Fallback categories for initial load
+  const fallbackCategories = [
     {
       name: 'Spécialités Poulet',
       items: [
@@ -36,6 +58,21 @@ const Menu = () => {
     }
   ];
 
+  // Use CMS data if available, otherwise use fallback
+  const categoriesToDisplay = menuCategories.length > 0 ? menuCategories : fallbackCategories;
+
+  if (isLoading) {
+    return (
+      <section id="menu" className="py-20 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center">
+            <p className="text-xl text-gray-600">Chargement du menu...</p>
+          </div>
+        </div>
+      </section>
+    );
+  }
+
   return (
     <section id="menu" className="py-20 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -61,7 +98,7 @@ const Menu = () => {
 
         {/* Menu Categories */}
         <div className="space-y-16">
-          {menuCategories.map((category, categoryIndex) => (
+          {categoriesToDisplay.map((category, categoryIndex) => (
             <div key={categoryIndex}>
               <h3 className="text-3xl font-bold text-gray-900 mb-8 text-center">
                 {category.name}
@@ -73,16 +110,19 @@ const Menu = () => {
                     className="bg-gray-50 rounded-2xl p-6 hover:bg-white hover:shadow-lg transition-all duration-300 border border-transparent hover:border-red-100"
                   >
                     <div className="flex justify-between items-start mb-3">
-                      <h4 className="text-xl font-semibold text-gray-900 leading-tight">
-                        {item.name}
-                      </h4>
-                      <span className="text-2xl font-bold text-red-600 ml-4 flex-shrink-0">
-                        {item.price}
-                      </span>
+                      <h4 className="text-xl font-bold text-gray-900">{item.name}</h4>
+                      <span className="text-2xl font-bold text-red-600">{item.price}</span>
                     </div>
-                    <p className="text-gray-600 leading-relaxed">
-                      {item.description}
-                    </p>
+                    <p className="text-gray-600 leading-relaxed">{item.description}</p>
+                    {'image' in item && item.image && (
+                      <div className="mt-4">
+                        <img 
+                          src={item.image} 
+                          alt={item.name}
+                          className="w-full h-32 object-cover rounded-lg"
+                        />
+                      </div>
+                    )}
                   </div>
                 ))}
               </div>
