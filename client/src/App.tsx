@@ -1,4 +1,4 @@
-import React from 'react';
+import { Route, Switch } from 'wouter';
 import Header from './components/Header';
 import Hero from './components/Hero';
 import About from './components/About';
@@ -13,12 +13,16 @@ function App() {
     <div className="min-h-screen bg-white">
       <Header />
       <main>
-        <Hero />
-        <About />
-        <Menu />
-        <Gallery />
-        <Reviews />
-        <Contact />
+        <Switch>
+          <Route path="/">
+            <Hero />
+            <About />
+            <Menu />
+            <Gallery />
+            <Reviews />
+            <Contact />
+          </Route>
+        </Switch>
       </main>
       <Footer />
     </div>

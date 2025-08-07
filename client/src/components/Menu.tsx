@@ -1,7 +1,6 @@
-import React from 'react';
 import { Download, Star, Clock, Users } from 'lucide-react';
 
-const Menu: React.FC = () => {
+const Menu = () => {
   const menuCategories = [
     {
       name: 'Spécialités Poulet',

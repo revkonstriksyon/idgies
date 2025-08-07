@@ -1,7 +1,6 @@
-import React from 'react';
 import { Star, ExternalLink, MessageCircle } from 'lucide-react';
 
-const Reviews: React.FC = () => {
+const Reviews = () => {
   const reviews = [
     {
       author: "Maddog D.",

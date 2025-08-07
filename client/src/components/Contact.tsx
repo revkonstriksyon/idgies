@@ -1,7 +1,6 @@
-import React from 'react';
 import { MapPin, Phone, Clock, Mail, ExternalLink } from 'lucide-react';
 
-const Contact: React.FC = () => {
+const Contact = () => {
   const openingHours = [
     { day: 'Lundi - Samedi', hours: '07:00 - 21:00' },
     { day: 'Dimanche', hours: '08:00 - 21:00' },

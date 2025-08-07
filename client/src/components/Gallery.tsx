@@ -1,7 +1,6 @@
-import React from 'react';
 import { Camera, ExternalLink } from 'lucide-react';
 
-const Gallery: React.FC = () => {
+const Gallery = () => {
   const galleryImages = [
     {
       url: "https://images.pexels.com/photos/958545/pexels-photo-958545.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop",

@@ -1,7 +1,6 @@
-import React from 'react';
 import { Utensils, Users, Heart } from 'lucide-react';
 
-const About: React.FC = () => {
+const About = () => {
   return (
     <section id="apropos" className="py-20 bg-gradient-to-b from-white to-gray-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

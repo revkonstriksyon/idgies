@@ -1,7 +1,6 @@
-import React from 'react';
 import { ArrowRight, MapPin, Clock } from 'lucide-react';
 
-const Hero: React.FC = () => {
+const Hero = () => {
   return (
     <section id="accueil" className="relative min-h-screen flex items-center pt-16 lg:pt-20">
       {/* Background Image */}
