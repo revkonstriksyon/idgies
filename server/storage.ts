@@ -1,6 +1,6 @@
 import { neon } from '@neondatabase/serverless';
 import { drizzle } from 'drizzle-orm/neon-http';
-import { eq } from 'drizzle-orm';
+import { eq, and } from 'drizzle-orm';
 import * as schema from '@shared/schema';
 import type {
   MenuItem,
@@ -25,6 +25,7 @@ export interface IStorage {
 
   // Gallery Images
   getGalleryImages(): Promise<GalleryImage[]>;
+  getFeaturedGalleryImages(): Promise<GalleryImage[]>;
   createGalleryImage(image: InsertGalleryImage): Promise<GalleryImage>;
   updateGalleryImage(id: number, image: Partial<InsertGalleryImage>): Promise<GalleryImage>;
   deleteGalleryImage(id: number): Promise<void>;
@@ -67,6 +68,13 @@ export class DbStorage implements IStorage {
   // Gallery Images
   async getGalleryImages(): Promise<GalleryImage[]> {
     return await db.select().from(schema.galleryImages).where(eq(schema.galleryImages.isActive, true)).orderBy(schema.galleryImages.order);
+  }
+
+  async getFeaturedGalleryImages(): Promise<GalleryImage[]> {
+    return await db.select().from(schema.galleryImages)
+      .where(and(eq(schema.galleryImages.isActive, true), eq(schema.galleryImages.isFeatured, true)))
+      .orderBy(schema.galleryImages.order)
+      .limit(6);
   }
 
   async createGalleryImage(image: InsertGalleryImage): Promise<GalleryImage> {

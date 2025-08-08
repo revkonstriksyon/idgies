@@ -104,29 +104,31 @@ const Admin = () => {
     const files = e.target.files;
     if (!files || files.length === 0) return;
 
-    const uploadPromises = Array.from(files).map(async (file) => {
-      const formData = new FormData();
-      formData.append('image', file);
-      formData.append('alt', `Photo Idgie's Restaurant - ${file.name}`);
-      formData.append('category', 'Plats');
-      formData.append('description', `Image téléchargée localement`);
+    const formData = new FormData();
+    Array.from(files).forEach(file => {
+      formData.append('images', file);
+    });
+    formData.append('alt', `Photo Idgie's Restaurant`);
+    formData.append('category', 'Plats');
+    formData.append('description', `Image téléchargée localement`);
+    formData.append('isFeatured', 'false');
 
-      return fetch('/api/gallery/upload', {
+    try {
+      const response = await fetch('/api/gallery/upload', {
         method: 'POST',
         body: formData
       });
-    });
 
-    try {
-      const results = await Promise.all(uploadPromises);
-      const successCount = results.filter(r => r.ok).length;
-
-      toast({
-        title: "Upload réussi",
-        description: `${successCount} images téléchargées et ajoutées à la galerie`,
-      });
-
-      queryClient.invalidateQueries({ queryKey: ['/api/gallery'] });
+      if (response.ok) {
+        const result = await response.json();
+        toast({
+          title: "Upload réussi",
+          description: result.message,
+        });
+        queryClient.invalidateQueries({ queryKey: ['/api/gallery'] });
+      } else {
+        throw new Error('Upload failed');
+      }
     } catch (error) {
       toast({
         title: "Erreur",
@@ -157,7 +159,7 @@ const Admin = () => {
         category: 'Plats'
       };
 
-      return fetch('/api/gallery', {
+      return fetch('/api/gallery/from-url', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(imageData)

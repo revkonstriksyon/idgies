@@ -1,14 +1,45 @@
 import type { Express } from "express";
 import { createServer, type Server } from "http";
+import express from "express";
 import { storage } from "./storage";
 import { insertMenuItemSchema, insertGalleryImageSchema, insertRestaurantInfoSchema, insertReviewSchema } from "@shared/schema";
 import { fromZodError } from "zod-validation-error";
-// Note: multer dependency temporarily disabled for file uploads
-// import multer from "multer";
+import multer from "multer";
 import path from "path";
 import fs from "fs";
 
+// Configuration multer pour le téléchargement d'images
+const storage_multer = multer.diskStorage({
+  destination: (req, file, cb) => {
+    const uploadPath = path.join(process.cwd(), 'uploads', 'gallery');
+    fs.mkdirSync(uploadPath, { recursive: true });
+    cb(null, uploadPath);
+  },
+  filename: (req, file, cb) => {
+    const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
+    cb(null, uniqueSuffix + path.extname(file.originalname));
+  }
+});
+
+const upload = multer({ 
+  storage: storage_multer,
+  fileFilter: (req, file, cb) => {
+    // Vérifier le type de fichier
+    if (file.mimetype.startsWith('image/')) {
+      cb(null, true);
+    } else {
+      cb(new Error('Seuls les fichiers images sont autorisés'));
+    }
+  },
+  limits: {
+    fileSize: 5 * 1024 * 1024 // 5MB max
+  }
+});
+
 export async function registerRoutes(app: Express): Promise<Server> {
+  // Servir les fichiers statiques uploadés
+  app.use('/uploads', express.static(path.join(process.cwd(), 'uploads')));
+
   // Health check
   app.get("/api", (req, res) => {
     res.json({ message: "Idgie's Restaurant API" });
@@ -108,9 +139,78 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  // Upload image endpoint (temporarily disabled - multer dependency issue)
-  app.post("/api/gallery/upload", async (req, res) => {
-    res.status(501).json({ error: "File upload temporarily unavailable - dependency issue being resolved" });
+  // Upload d'images pour la galerie
+  app.post("/api/gallery/upload", upload.array('images', 10), async (req, res) => {
+    try {
+      const files = req.files as Express.Multer.File[];
+      if (!files || files.length === 0) {
+        return res.status(400).json({ error: "Aucune image téléchargée" });
+      }
+
+      const uploadedImages = [];
+      
+      for (const file of files) {
+        const imageData = {
+          url: `/uploads/gallery/${file.filename}`,
+          alt: req.body.alt || `Image Idgie's Restaurant - ${file.originalname}`,
+          category: req.body.category || 'Plats',
+          description: req.body.description || 'Image téléchargée localement',
+          filename: file.originalname,
+          filepath: file.path,
+          isFeatured: req.body.isFeatured === 'true' || false
+        };
+        
+        const image = await storage.createGalleryImage(imageData);
+        uploadedImages.push(image);
+      }
+
+      res.status(201).json({
+        message: `${uploadedImages.length} image(s) téléchargée(s) avec succès`,
+        images: uploadedImages
+      });
+      
+    } catch (error: any) {
+      console.error('Erreur lors du téléchargement:', error);
+      res.status(500).json({ error: "Erreur lors du téléchargement des images" });
+    }
+  });
+
+  // Upload d'images depuis URL
+  app.post("/api/gallery/from-url", async (req, res) => {
+    try {
+      const { url, alt, category, description, isFeatured } = req.body;
+      
+      if (!url) {
+        return res.status(400).json({ error: "URL requise" });
+      }
+
+      const imageData = {
+        url,
+        alt: alt || 'Image Idgie\'s Restaurant',
+        category: category || 'Plats',
+        description: description || 'Image ajoutée depuis URL',
+        isFeatured: isFeatured || false
+      };
+      
+      const image = await storage.createGalleryImage(imageData);
+      res.status(201).json(image);
+      
+    } catch (error: any) {
+      if (error.name === 'ZodError') {
+        return res.status(400).json({ error: fromZodError(error).toString() });
+      }
+      res.status(500).json({ error: "Erreur lors de l'ajout de l'image" });
+    }
+  });
+
+  // Endpoint pour obtenir les images en vedette
+  app.get("/api/gallery/featured", async (req, res) => {
+    try {
+      const images = await storage.getFeaturedGalleryImages();
+      res.json(images);
+    } catch (error) {
+      res.status(500).json({ error: "Failed to fetch featured images" });
+    }
   });
 
   // Restaurant Info
