@@ -10,6 +10,8 @@ const Header = () => {
     { name: 'Menu', href: '#menu' },
     { name: 'Galerie', href: '#galerie' },
     { name: 'Avis', href: '#avis' },
+    { name: 'Commander', href: '#commander' },
+    { name: 'Réserver', href: '#reservation' },
     { name: 'Contact', href: '#contact' },
   ];
 

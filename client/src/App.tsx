@@ -8,6 +8,9 @@ import About from './components/About';
 import Menu from './components/Menu';
 import Gallery from './components/Gallery';
 import Reviews from './components/Reviews';
+import OnlineOrdering from './components/OnlineOrdering';
+import ReservationSystem from './components/ReservationSystem';
+import LocationMap from './components/LocationMap';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
 import Admin from './pages/Admin';
@@ -28,6 +31,9 @@ function App() {
               <Menu />
               <Gallery />
               <Reviews />
+              <OnlineOrdering />
+              <ReservationSystem />
+              <LocationMap />
               <Contact />
             </main>
             <Footer />
