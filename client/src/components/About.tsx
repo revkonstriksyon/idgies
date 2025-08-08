@@ -38,7 +38,7 @@ const About = () => {
           
           <div className="relative">
             <img
-              src="https://scontent.fpap3-2.fna.fbcdn.net/v/t39.30808-6/469179862_18055497832934301_2010378637651852501_n.jpg?_nc_cat=102&ccb=1-7&_nc_sid=127cfc&_nc_eui2=AeH5WO0BxyEc4KtJC87BGMatt__USCYlFIq3_9RIJiUUigPQC4RndQQK4USmKsNJM-h8pjRV_WxQXP9uK47a-4Qc&_nc_ohc=QhmQ7G0V4EAQ7kNvwFzbysR&_nc_oc=AdnQtKsVZjKvuoBSeqFDji9eCj3byISGzdwEHW2PS8B4dRapf6_LXfBH1pPmtSsHq3U&_nc_zt=23&_nc_ht=scontent.fpap3-2.fna&_nc_gid=ByFSqyXvfU3dLSfCMNfNKQ&oh=00_AfQ0CcEiHm6534PF4R-CgJp6DDE-zZuqQLjnxE7Y1DexeQ&oe=688E9B88"
+              src="/images/gallery/Idgies_1754683320130.jpg"
               alt="Ambiance chaleureuse d'Idgie's Restaurant"
               className="w-full h-96 object-cover rounded-2xl shadow-2xl"
             />
