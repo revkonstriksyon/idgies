@@ -11,7 +11,7 @@ import fs from "fs";
 // Configuration multer pour le téléchargement d'images
 const storage_multer = multer.diskStorage({
   destination: (req, file, cb) => {
-    const uploadPath = path.join(process.cwd(), 'uploads', 'gallery');
+    const uploadPath = path.join(process.cwd(), 'client', 'public', 'images', 'gallery');
     fs.mkdirSync(uploadPath, { recursive: true });
     cb(null, uploadPath);
   },
@@ -151,9 +151,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
       
       for (const file of files) {
         const imageData = {
-          url: `/uploads/gallery/${file.filename}`,
+          url: `/images/gallery/${file.filename}`,
           alt: req.body.alt || `Image Idgie's Restaurant - ${file.originalname}`,
-          category: req.body.category || 'Plats',
+          category: req.body.category || 'plats',
           description: req.body.description || 'Image téléchargée localement',
           filename: file.originalname,
           filepath: file.path,
