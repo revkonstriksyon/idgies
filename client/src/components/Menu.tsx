@@ -1,78 +1,6 @@
 import { Download, Star, Clock, Users } from 'lucide-react';
-import { useQuery } from '@tanstack/react-query';
-import type { MenuItem } from '@shared/schema';
 
 const Menu = () => {
-  // Fetch menu items from CMS
-  const { data: menuItems = [], isLoading } = useQuery<MenuItem[]>({
-    queryKey: ['/api/menu'],
-  });
-
-  // Group menu items by category
-  const menuCategories = menuItems.reduce((acc, item) => {
-    const category = acc.find(cat => cat.name === item.category);
-    if (category) {
-      category.items.push(item);
-    } else {
-      acc.push({
-        name: item.category,
-        items: [item]
-      });
-    }
-    return acc;
-  }, [] as Array<{ name: string; items: MenuItem[] }>);
-
-  // Fallback categories for initial load
-  const fallbackCategories = [
-    {
-      name: 'Spécialités Poulet',
-      items: [
-        { name: 'Poulet Grillé Idgie\'s', price: '450 HTG', description: 'Poulet mariné aux épices locales, grillé à la perfection' },
-        { name: 'Ailes de Poulet BBQ', price: '350 HTG', description: 'Ailes croustillantes sauce barbecue maison' },
-        { name: 'Tenders de Poulet', price: '400 HTG', description: 'Filets de poulet panés, sauce au choix' },
-      ]
-    },
-    {
-      name: 'Pizzas Artisanales',
-      items: [
-        { name: 'Pizza Créole', price: '600 HTG', description: 'Base tomate, fromage, jambon de pays, légumes locaux' },
-        { name: 'Pizza Margherita', price: '500 HTG', description: 'Tomate, mozzarella fraîche, basilic' },
-        { name: 'Pizza BBQ Chicken', price: '650 HTG', description: 'Base BBQ, poulet grillé, oignons rouges, fromage' },
-      ]
-    },
-    {
-      name: 'Salades Fraîches',
-      items: [
-        { name: 'Salade Tropicale', price: '300 HTG', description: 'Mix de légumes frais, fruits tropicaux, vinaigrette passion' },
-        { name: 'César au Poulet', price: '400 HTG', description: 'Salade César classique avec poulet grillé' },
-        { name: 'Salade Verte Simple', price: '250 HTG', description: 'Légumes verts frais, tomates, vinaigrette maison' },
-      ]
-    },
-    {
-      name: 'Boissons & Jus',
-      items: [
-        { name: 'Jus Tonique Maison', price: '150 HTG', description: 'Notre spécialité rafraîchissante' },
-        { name: 'Jus de Fruits Frais', price: '120 HTG', description: 'Orange, ananas, ou fruits de saison' },
-        { name: 'Sodas & Eaux', price: '80 HTG', description: 'Sélection de boissons rafraîchissantes' },
-      ]
-    }
-  ];
-
-  // Use CMS data if available, otherwise use fallback
-  const categoriesToDisplay = menuCategories.length > 0 ? menuCategories : fallbackCategories;
-
-  if (isLoading) {
-    return (
-      <section id="menu" className="py-20 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center">
-            <p className="text-xl text-gray-600">Chargement du menu...</p>
-          </div>
-        </div>
-      </section>
-    );
-  }
-
   return (
     <section id="menu" className="py-20 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -89,6 +17,11 @@ const Menu = () => {
           {/* Download PDF Button */}
           <a
             href="#"
+            onClick={(e) => {
+              e.preventDefault();
+              // For now, this is a placeholder - in future a real PDF can be added
+              alert("Menu PDF sera bientôt disponible pour téléchargement!");
+            }}
             className="inline-flex items-center bg-red-600 text-white px-8 py-4 rounded-full font-semibold hover:bg-red-700 transition-all duration-300 shadow-lg hover:shadow-xl group"
           >
             <Download size={20} className="mr-3 group-hover:scale-110 transition-transform" />
@@ -96,42 +29,41 @@ const Menu = () => {
           </a>
         </div>
 
-        {/* Menu Categories */}
-        <div className="space-y-16">
-          {categoriesToDisplay.map((category, categoryIndex) => (
-            <div key={categoryIndex}>
-              <h3 className="text-3xl font-bold text-gray-900 mb-8 text-center">
-                {category.name}
-              </h3>
-              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                {category.items.map((item, itemIndex) => (
-                  <div 
-                    key={itemIndex}
-                    className="bg-gray-50 rounded-2xl p-6 hover:bg-white hover:shadow-lg transition-all duration-300 border border-transparent hover:border-red-100"
-                  >
-                    <div className="flex justify-between items-start mb-3">
-                      <h4 className="text-xl font-bold text-gray-900">{item.name}</h4>
-                      <span className="text-2xl font-bold text-red-600">{item.price}</span>
-                    </div>
-                    <p className="text-gray-600 leading-relaxed">{item.description}</p>
-                    {'image' in item && item.image && (
-                      <div className="mt-4">
-                        <img 
-                          src={item.image} 
-                          alt={item.name}
-                          className="w-full h-32 object-cover rounded-lg"
-                        />
-                      </div>
-                    )}
-                  </div>
-                ))}
-              </div>
+        {/* Menu Preview Cards */}
+        <div className="grid md:grid-cols-3 gap-8 mb-16">
+          <div className="bg-gradient-to-br from-red-50 to-red-100 rounded-2xl p-8 text-center hover:shadow-lg transition-shadow">
+            <div className="bg-red-600 text-white w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+              <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+              </svg>
             </div>
-          ))}
+            <h3 className="text-xl font-bold text-gray-900 mb-2">Spécialités Poulet</h3>
+            <p className="text-gray-600">Poulet grillé, ailes BBQ, tenders croustillants</p>
+          </div>
+          
+          <div className="bg-gradient-to-br from-orange-50 to-orange-100 rounded-2xl p-8 text-center hover:shadow-lg transition-shadow">
+            <div className="bg-orange-600 text-white w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+              <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v13m0-13V6a2 2 0 112 2h-2zm0 0V5.5A2.5 2.5 0 109.5 8H12z" />
+              </svg>
+            </div>
+            <h3 className="text-xl font-bold text-gray-900 mb-2">Pizzas Artisanales</h3>
+            <p className="text-gray-600">Créole, Margherita, BBQ Chicken</p>
+          </div>
+          
+          <div className="bg-gradient-to-br from-green-50 to-green-100 rounded-2xl p-8 text-center hover:shadow-lg transition-shadow">
+            <div className="bg-green-600 text-white w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+              <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+            </div>
+            <h3 className="text-xl font-bold text-gray-900 mb-2">Plats Traditionnels</h3>
+            <p className="text-gray-600">Cuisine créole authentique et savoureuse</p>
+          </div>
         </div>
 
         {/* Special Offers */}
-        <div className="mt-20 bg-gradient-to-r from-red-600 to-red-700 rounded-3xl p-8 text-center text-white">
+        <div className="bg-gradient-to-r from-red-600 to-red-700 rounded-3xl p-8 text-center text-white">
           <div className="flex items-center justify-center mb-4">
             <Star size={32} className="text-yellow-300 mr-2" />
             <h3 className="text-3xl font-bold">Offres Spéciales</h3>

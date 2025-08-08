@@ -168,15 +168,14 @@ const LocationMap = () => {
 
             <Card>
               <CardHeader>
-                <CardTitle>Points de Repère</CardTitle>
+                <CardTitle>Informations Pratiques</CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="space-y-2 text-sm text-gray-600">
-                  <p>• À proximité de la station Shell Delmas 60</p>
-                  <p>• En face du supermarché Caribbean Market</p>
-                  <p>• À 10 minutes de Pétion-Ville</p>
                   <p>• Parking disponible sur place</p>
                   <p>• Accessible aux personnes à mobilité réduite</p>
+                  <p>• WiFi gratuit pour nos clients</p>
+                  <p>• Terrasse climatisée disponible</p>
                 </div>
               </CardContent>
             </Card>
