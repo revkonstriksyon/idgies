@@ -3,6 +3,27 @@ import { createServer, type Server } from "http";
 import { storage } from "./storage";
 import { insertMenuItemSchema, insertGalleryImageSchema, insertRestaurantInfoSchema, insertReviewSchema } from "@shared/schema";
 import { fromZodError } from "zod-validation-error";
+import multer from "multer";
+import path from "path";
+import fs from "fs";
+
+// Configure multer for image uploads
+const uploadDir = path.join(__dirname, 'uploads');
+if (!fs.existsSync(uploadDir)) {
+  fs.mkdirSync(uploadDir, { recursive: true });
+}
+
+const upload = multer({
+  dest: uploadDir,
+  limits: { fileSize: 5 * 1024 * 1024 }, // 5MB limit
+  fileFilter: (req, file, cb) => {
+    if (file.mimetype.startsWith('image/')) {
+      cb(null, true);
+    } else {
+      cb(new Error('Only image files are allowed!'));
+    }
+  }
+});
 
 export async function registerRoutes(app: Express): Promise<Server> {
   // Health check
@@ -101,6 +122,37 @@ export async function registerRoutes(app: Express): Promise<Server> {
       res.status(204).send();
     } catch (error) {
       res.status(500).json({ error: "Failed to delete gallery image" });
+    }
+  });
+
+  // Upload image endpoint
+  app.post("/api/gallery/upload", upload.single('image'), async (req, res) => {
+    try {
+      if (!req.file) {
+        return res.status(400).json({ error: "No image file provided" });
+      }
+
+      // Generate a unique filename
+      const fileExtension = path.extname(req.file.originalname);
+      const fileName = `${Date.now()}-${Math.random().toString(36).substring(7)}${fileExtension}`;
+      const newPath = path.join(uploadDir, fileName);
+      
+      // Move file to proper location with new name
+      fs.renameSync(req.file.path, newPath);
+
+      // Create gallery entry
+      const imageData = {
+        url: `/uploads/${fileName}`,
+        alt: req.body.alt || req.file.originalname,
+        category: req.body.category || 'Plats',
+        description: req.body.description || 'Image téléchargée localement',
+      };
+
+      const image = await storage.createGalleryImage(imageData);
+      res.status(201).json(image);
+    } catch (error: any) {
+      console.error('Upload error:', error);
+      res.status(500).json({ error: "Failed to upload image" });
     }
   });
 

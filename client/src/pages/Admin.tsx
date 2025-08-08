@@ -100,6 +100,42 @@ const Admin = () => {
     (e.target as HTMLFormElement).reset();
   };
 
+  const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const files = e.target.files;
+    if (!files || files.length === 0) return;
+
+    const uploadPromises = Array.from(files).map(async (file) => {
+      const formData = new FormData();
+      formData.append('image', file);
+      formData.append('alt', `Photo Idgie's Restaurant - ${file.name}`);
+      formData.append('category', 'Plats');
+      formData.append('description', `Image téléchargée localement`);
+
+      return fetch('/api/gallery/upload', {
+        method: 'POST',
+        body: formData
+      });
+    });
+
+    try {
+      const results = await Promise.all(uploadPromises);
+      const successCount = results.filter(r => r.ok).length;
+
+      toast({
+        title: "Upload réussi",
+        description: `${successCount} images téléchargées et ajoutées à la galerie`,
+      });
+
+      queryClient.invalidateQueries({ queryKey: ['/api/gallery'] });
+    } catch (error) {
+      toast({
+        title: "Erreur",
+        description: "Erreur lors du téléchargement des images",
+        variant: "destructive",
+      });
+    }
+  };
+
   const handleBulkImport = async () => {
     const textarea = document.getElementById('bulk-urls') as HTMLTextAreaElement;
     const urls = textarea.value.split('\n').filter(url => url.trim());
@@ -590,16 +626,39 @@ const Admin = () => {
                   </div>
                 </form>
 
-                {/* Bulk Instagram Import */}
-                <div className="mt-8 p-6 bg-gradient-to-r from-pink-50 to-purple-50 rounded-xl border border-pink-200">
+                {/* Local Image Upload */}
+                <div className="mt-8 p-6 bg-gradient-to-r from-green-50 to-blue-50 rounded-xl border border-green-200">
+                  <h4 className="text-lg font-semibold text-green-800 mb-4 flex items-center gap-2">
+                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
+                    </svg>
+                    Téléchargement d'Images Local
+                  </h4>
+                  <p className="text-sm text-green-700 mb-4">
+                    Téléchargez vos images directement depuis votre ordinateur pour un hébergement permanent :
+                  </p>
+                  <input 
+                    type="file"
+                    multiple
+                    accept="image/*"
+                    onChange={handleImageUpload}
+                    className="w-full p-3 border border-green-200 rounded-lg bg-white"
+                  />
+                  <p className="text-xs text-green-600 mt-2">
+                    ✅ URLs permanentes • ✅ Hébergement fiable • ✅ Performance optimale
+                  </p>
+                </div>
+
+                {/* Bulk Instagram Import (Backup option) */}
+                <div className="mt-4 p-6 bg-gradient-to-r from-pink-50 to-purple-50 rounded-xl border border-pink-200">
                   <h4 className="text-lg font-semibold text-purple-800 mb-4 flex items-center gap-2">
                     <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
                       <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
                     </svg>
-                    Import Rapide Instagram
+                    Import URLs (Option de secours)
                   </h4>
                   <p className="text-sm text-purple-700 mb-4">
-                    Collez plusieurs URLs d'images Instagram (une par ligne) pour les ajouter rapidement :
+                    ⚠️ URLs temporaires - Utilisez uniquement si nécessaire :
                   </p>
                   <textarea 
                     className="w-full h-32 p-3 border border-purple-200 rounded-lg resize-none"
@@ -611,7 +670,7 @@ const Admin = () => {
                     onClick={handleBulkImport}
                     className="mt-3 px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors"
                   >
-                    Importer toutes les images
+                    Importer URLs (Non recommandé)
                   </button>
                 </div>
               </CardContent>
