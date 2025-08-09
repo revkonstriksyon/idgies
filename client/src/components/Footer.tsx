@@ -85,9 +85,8 @@ const Footer = () => {
                 <MapPin size={20} className="text-red-500 mt-1 flex-shrink-0" />
                 <div>
                   <p className="text-gray-400 leading-relaxed">
-                    Zone Eglise Altagrace<br />
-                    Angle Route de Delmas, et Delmas 59<br />
-                    Port-au-Prince 6110
+                    Delmas 59<br />
+                    Port-au-Prince, Haïti
                   </p>
                 </div>
               </div>

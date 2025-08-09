@@ -33,9 +33,8 @@ const Contact = () => {
               <div>
                 <h4 className="font-semibold text-gray-900 mb-2">Adresse</h4>
                 <p className="text-gray-700 leading-relaxed">
-                  Zone Eglise Altagrace,<br />
-                  Angle Route de Delmas, et Delmas 59<br />
-                  Port-au-Prince 6110, Haïti
+                  Delmas 59<br />
+                  Port-au-Prince, Haïti
                 </p>
               </div>
             </div>

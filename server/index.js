@@ -73,7 +73,7 @@ app.get('/api/restaurant-info', (req, res) => {
     id: 1,
     name: "Restaurant Idgie",
     description: "Restaurant authentique haïtien situé à Delmas",
-    address: "Delmas, Port-au-Prince, Haïti",
+    address: "Delmas 59, Port-au-Prince, Haïti",
     phone: "+509 1234-5678",
     email: "contact@restaurant-idgie.com",
     hours: {

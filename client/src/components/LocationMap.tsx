@@ -5,10 +5,10 @@ import { Button } from '@/components/ui/button';
 const LocationMap = () => {
   const restaurantLocation = {
     name: "Idgie's Restaurant",
-    address: "Delmas 60, Port-au-Prince, Haïti",
+    address: "Delmas 59, Port-au-Prince, Haïti",
     phone: "(509) 4877-3957",
     coordinates: "18.5392° N, 72.3078° W", // Approximate coordinates for Delmas
-    googleMapsUrl: "https://maps.google.com/?q=Delmas+60,+Port-au-Prince,+Haiti"
+    googleMapsUrl: "https://maps.app.goo.gl/eYQucKc2mkkSKfXQ9?g_st=iwb"
   };
 
   return (
@@ -182,36 +182,7 @@ const LocationMap = () => {
           </div>
         </div>
 
-        {/* Transportation Info */}
-        <div className="mt-16 bg-gradient-to-r from-red-600 to-red-700 rounded-3xl p-8 text-white">
-          <h3 className="text-2xl font-bold text-center mb-8">Comment nous rejoindre</h3>
-          <div className="grid md:grid-cols-3 gap-8">
-            <div className="text-center">
-              <div className="bg-white/10 rounded-2xl p-6 backdrop-blur-sm">
-                <h4 className="font-semibold mb-3">En Tap-Tap</h4>
-                <p className="text-red-100 text-sm">
-                  Ligne Delmas 60 - Descendez à l'arrêt Shell Delmas 60
-                </p>
-              </div>
-            </div>
-            <div className="text-center">
-              <div className="bg-white/10 rounded-2xl p-6 backdrop-blur-sm">
-                <h4 className="font-semibold mb-3">En Voiture</h4>
-                <p className="text-red-100 text-sm">
-                  Route de Delmas - Parking gratuit disponible
-                </p>
-              </div>
-            </div>
-            <div className="text-center">
-              <div className="bg-white/10 rounded-2xl p-6 backdrop-blur-sm">
-                <h4 className="font-semibold mb-3">Moto-Taxi</h4>
-                <p className="text-red-100 text-sm">
-                  Accessible facilement depuis tous les quartiers avoisinants
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
+
       </div>
     </section>
   );

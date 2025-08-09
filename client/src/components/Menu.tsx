@@ -16,12 +16,9 @@ const Menu = () => {
           
           {/* Download PDF Button */}
           <a
-            href="#"
-            onClick={(e) => {
-              e.preventDefault();
-              // For now, this is a placeholder - in future a real PDF can be added
-              alert("Menu PDF sera bientôt disponible pour téléchargement!");
-            }}
+            href="https://drive.google.com/file/d/1knZDFMWKbgepT5mgJkRLQTbkDsK34xHN/view?usp=sharing"
+            target="_blank"
+            rel="noopener noreferrer"
             className="inline-flex items-center bg-red-600 text-white px-8 py-4 rounded-full font-semibold hover:bg-red-700 transition-all duration-300 shadow-lg hover:shadow-xl group"
           >
             <Download size={20} className="mr-3 group-hover:scale-110 transition-transform" />
