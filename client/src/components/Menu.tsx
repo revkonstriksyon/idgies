@@ -16,46 +16,88 @@ const Menu = () => {
           
           {/* Download PDF Button */}
           <a
-            href="https://drive.google.com/file/d/1knZDFMWKbgepT5mgJkRLQTbkDsK34xHN/view?usp=sharing"
+            href="/menu.pdf"
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center bg-red-600 text-white px-8 py-4 rounded-full font-semibold hover:bg-red-700 transition-all duration-300 shadow-lg hover:shadow-xl group"
           >
             <Download size={20} className="mr-3 group-hover:scale-110 transition-transform" />
-            Télécharger le Menu PDF
+            Voir le Menu Complet
           </a>
         </div>
 
-        {/* Menu Preview Cards */}
-        <div className="grid md:grid-cols-3 gap-8 mb-16">
-          <div className="bg-gradient-to-br from-red-50 to-red-100 rounded-2xl p-8 text-center hover:shadow-lg transition-shadow">
-            <div className="bg-red-600 text-white w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
-              <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
-              </svg>
+        {/* Menu Highlights - Real Items */}
+        <div className="grid lg:grid-cols-2 gap-12 mb-16">
+          {/* Popular Dishes */}
+          <div>
+            <h3 className="text-2xl font-bold text-gray-900 mb-6 text-center">Nos Spécialités</h3>
+            <div className="space-y-4">
+              <div className="bg-white border border-gray-200 rounded-xl p-6 hover:shadow-lg transition-shadow">
+                <div className="flex justify-between items-start">
+                  <div>
+                    <h4 className="font-semibold text-lg text-gray-900">Poulet Grillé Complet</h4>
+                    <p className="text-gray-600 text-sm mt-1">Avec riz, banane plantain et salade</p>
+                  </div>
+                  <span className="text-red-600 font-bold text-lg">450 HTG</span>
+                </div>
+              </div>
+              
+              <div className="bg-white border border-gray-200 rounded-xl p-6 hover:shadow-lg transition-shadow">
+                <div className="flex justify-between items-start">
+                  <div>
+                    <h4 className="font-semibold text-lg text-gray-900">Pizza Créole</h4>
+                    <p className="text-gray-600 text-sm mt-1">Spécialité maison avec ingrédients locaux</p>
+                  </div>
+                  <span className="text-red-600 font-bold text-lg">500 HTG</span>
+                </div>
+              </div>
+
+              <div className="bg-white border border-gray-200 rounded-xl p-6 hover:shadow-lg transition-shadow">
+                <div className="flex justify-between items-start">
+                  <div>
+                    <h4 className="font-semibold text-lg text-gray-900">Griot Traditionnel</h4>
+                    <p className="text-gray-600 text-sm mt-1">Porc mariné avec pikliz et ti malice</p>
+                  </div>
+                  <span className="text-red-600 font-bold text-lg">400 HTG</span>
+                </div>
+              </div>
             </div>
-            <h3 className="text-xl font-bold text-gray-900 mb-2">Spécialités Poulet</h3>
-            <p className="text-gray-600">Poulet grillé, ailes BBQ, tenders croustillants</p>
           </div>
-          
-          <div className="bg-gradient-to-br from-orange-50 to-orange-100 rounded-2xl p-8 text-center hover:shadow-lg transition-shadow">
-            <div className="bg-orange-600 text-white w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
-              <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v13m0-13V6a2 2 0 112 2h-2zm0 0V5.5A2.5 2.5 0 109.5 8H12z" />
-              </svg>
+
+          {/* Beverages & Sides */}
+          <div>
+            <h3 className="text-2xl font-bold text-gray-900 mb-6 text-center">Boissons & Accompagnements</h3>
+            <div className="space-y-4">
+              <div className="bg-white border border-gray-200 rounded-xl p-6 hover:shadow-lg transition-shadow">
+                <div className="flex justify-between items-start">
+                  <div>
+                    <h4 className="font-semibold text-lg text-gray-900">Jus Naturels</h4>
+                    <p className="text-gray-600 text-sm mt-1">Orange, ananas, passion, tamarin</p>
+                  </div>
+                  <span className="text-red-600 font-bold text-lg">150 HTG</span>
+                </div>
+              </div>
+              
+              <div className="bg-white border border-gray-200 rounded-xl p-6 hover:shadow-lg transition-shadow">
+                <div className="flex justify-between items-start">
+                  <div>
+                    <h4 className="font-semibold text-lg text-gray-900">Akra & Marinad</h4>
+                    <p className="text-gray-600 text-sm mt-1">Beignets traditionnels croustillants</p>
+                  </div>
+                  <span className="text-red-600 font-bold text-lg">100 HTG</span>
+                </div>
+              </div>
+
+              <div className="bg-white border border-gray-200 rounded-xl p-6 hover:shadow-lg transition-shadow">
+                <div className="flex justify-between items-start">
+                  <div>
+                    <h4 className="font-semibold text-lg text-gray-900">Pikliz Maison</h4>
+                    <p className="text-gray-600 text-sm mt-1">Condiment épicé fait maison</p>
+                  </div>
+                  <span className="text-red-600 font-bold text-lg">50 HTG</span>
+                </div>
+              </div>
             </div>
-            <h3 className="text-xl font-bold text-gray-900 mb-2">Pizzas Artisanales</h3>
-            <p className="text-gray-600">Créole, Margherita, BBQ Chicken</p>
-          </div>
-          
-          <div className="bg-gradient-to-br from-green-50 to-green-100 rounded-2xl p-8 text-center hover:shadow-lg transition-shadow">
-            <div className="bg-green-600 text-white w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
-              <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-              </svg>
-            </div>
-            <h3 className="text-xl font-bold text-gray-900 mb-2">Plats Traditionnels</h3>
-            <p className="text-gray-600">Cuisine créole authentique et savoureuse</p>
           </div>
         </div>
 
