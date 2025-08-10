@@ -20,10 +20,13 @@ const Header = () => {
         <div className="flex justify-between items-center h-16 lg:h-20">
           {/* Logo */}
           <div className="flex-shrink-0">
-            <h1 className="text-2xl lg:text-3xl font-bold text-red-600">
-              Idgie's
-            </h1>
-            <p className="text-xs text-gray-600 -mt-1">Restaurant</p>
+            <a href="#accueil" className="flex items-center">
+              <img 
+                src="/logo-idgies.png" 
+                alt="Idgie's Restaurant" 
+                className="h-12 lg:h-16 w-auto"
+              />
+            </a>
           </div>
 
           {/* Desktop Navigation */}
