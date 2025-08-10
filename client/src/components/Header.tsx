@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Menu, X, Phone } from 'lucide-react';
+import logoImage from '@assets/logo a.png';
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -22,7 +23,7 @@ const Header = () => {
           <div className="flex-shrink-0">
             <a href="#accueil" className="flex items-center">
               <img 
-                src="/logo-idgies.png" 
+                src={logoImage} 
                 alt="Idgie's Restaurant" 
                 className="h-12 lg:h-16 w-auto"
               />
