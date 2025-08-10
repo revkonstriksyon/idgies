@@ -98,6 +98,10 @@ The project is configured for Replit deployment using their hosting platform. Th
 - ✅ Clean admin interface with direct file upload functionality only  
 - ✅ Fixed Hero, About, and Gallery components to use only local images
 - ✅ Completely eliminated all external URLs from the entire codebase
+- ✅ Restored gallery to use static local images from public/images/gallery folder (August 9, 2025)
+- ✅ Updated all location references to use correct Delmas 59 address
+- ✅ Added working Google Drive link for menu PDF download
+- ✅ Removed duplicate "Comment nous rejoindre" section from LocationMap
 
 ## Complete Feature Analysis
 

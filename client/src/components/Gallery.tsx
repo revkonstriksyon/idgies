@@ -1,36 +1,68 @@
 import { Camera, ExternalLink } from 'lucide-react';
 import { useState } from 'react';
-import { useQuery } from '@tanstack/react-query';
-import type { GalleryImage } from '@shared/schema';
 
 const Gallery = () => {
   const [filter, setFilter] = useState('all');
 
-  // Fetch gallery images from CMS
-  const { data: galleryImages = [], isLoading } = useQuery<GalleryImage[]>({
-    queryKey: ['/api/gallery'],
-  });
+  // Images statiques du dossier public/images/gallery
+  const staticImages = [
+    {
+      url: '/images/gallery/456908738_18045232627934301_6600163501045261616_n_1754683320117.jpg',
+      alt: 'Plat délicieux',
+      category: 'plats',
+      description: 'Délicieux plats haïtiens'
+    },
+    {
+      url: '/images/gallery/burger_1754683320128.jpg',
+      alt: 'Burger spécial',
+      category: 'plats',
+      description: 'Notre burger signature'
+    },
+    {
+      url: '/images/gallery/pla pwason_1754683320132.jpg',
+      alt: 'Plat de poisson',
+      category: 'plats',
+      description: 'Poisson frais préparé à la haïtienne'
+    },
+    {
+      url: '/images/gallery/espas 2_1754683320129.jpg',
+      alt: 'Espace restaurant',
+      category: 'ambiance',
+      description: 'Vue de notre salle à manger'
+    },
+    {
+      url: '/images/gallery/Idgies_1754683320130.jpg',
+      alt: 'Restaurant Idgie',
+      category: 'ambiance',
+      description: 'Vue extérieure du restaurant'
+    },
+    {
+      url: '/images/gallery/457108108_18045232327934301_7304619967249284568_n_1754683320118.jpg',
+      alt: 'Plat traditionnel',
+      category: 'plats',
+      description: 'Cuisine traditionnelle haïtienne'
+    },
+    {
+      url: '/images/gallery/469179862_18055497832934301_2010378637651852501_n_1754683320119.jpg',
+      alt: 'Spécialité maison',
+      category: 'plats',
+      description: 'Une de nos spécialités'
+    },
+    {
+      url: '/images/gallery/471474144_18057839917934301_8480462483126705147_n_1754683320120.jpg',
+      alt: 'Délice culinaire',
+      category: 'plats',
+      description: 'Plat préparé avec soin'
+    }
+  ];
 
-  // Use only CMS data from the gallery
-  const imagesToDisplay = galleryImages;
+  const imagesToDisplay = staticImages;
 
   const filteredImages = filter === 'all' 
     ? imagesToDisplay 
     : imagesToDisplay.filter(img => img.category.toLowerCase() === filter.toLowerCase());
 
-  const categories = ['all', 'plats', 'ambiance', 'cuisine', 'service', 'équipe'];
-
-  if (isLoading) {
-    return (
-      <section id="galerie" className="py-20 bg-gradient-to-b from-gray-50 to-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center">
-            <p className="text-xl text-gray-600">Chargement de la galerie...</p>
-          </div>
-        </div>
-      </section>
-    );
-  }
+  const categories = ['all', 'plats', 'ambiance'];
 
   return (
     <section id="galerie" className="py-20 bg-gradient-to-b from-gray-50 to-white">
